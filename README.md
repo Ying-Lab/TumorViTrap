@@ -1,9 +1,9 @@
-# TumorViTrap
+# ViTrace
 
 
-TumorViTrap is a state-of-the-art, dual-channel deep neural network designed to identify viral sequences within human transcriptomic data. It employs an integrated approach by combining Transformer and Convolutional Neural Network (CNN) architectures, maximizing their strengths to uncover viral signatures in human tumor sequencing data effectively. This tool is crucial for researchers focusing on the viral etiology of cancers.
+ViTrace is a state-of-the-art, dual-channel deep neural network designed to identify viral sequences within human transcriptomic data. It employs an integrated approach by combining Transformer and Convolutional Neural Network (CNN) architectures, maximizing their strengths to uncover viral signatures in human tumor sequencing data effectively. This tool is crucial for researchers focusing on the viral etiology of cancers.
 
-For more details, visit the [TumorViTrap GitHub repository](https://github.com/Ying-Lab/TumorViTrap).
+For more details, visit the [ViTrace GitHub repository](https://github.com/Ying-Lab/ViTrace).
 
 
 ## Prerequisites
@@ -13,14 +13,14 @@ For more details, visit the [TumorViTrap GitHub repository](https://github.com/Y
 
 ## Installation
 
-To install TumorViTrap, follow these steps:
+To install ViTrace, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Ying-Lab/TumorViTrap
-2. Navigate to the TumorViTrap directory:
+   git clone https://github.com/Ying-Lab/ViTrace
+2. Navigate to the ViTrace directory:
    ```bash
-   cd TumorViTrap
+   cd ViTrace
 3. Install the required dependencies:
    ```bash
    pip install -r requirements.txt
