@@ -36,11 +36,11 @@ To analyze human sequencing data, ensure that your sequencing read files are sto
 python predict_mouse.py
 ```
 # Contributing
-Contributions to TumorViTrap are welcome! Please refer to the contributing guidelines for more information on how to submit issues, fork the repository, and create pull requests.
+Contributions to ViTrace are welcome! Please refer to the contributing guidelines for more information on how to submit issues, fork the repository, and create pull requests.
 
 # License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 # Acknowledgments
-We would like to thank all contributors and users of TumorViTrap for their support and feedback.
+We would like to thank all contributors and users of ViTrace for their support and feedback.
