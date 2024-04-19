@@ -26,15 +26,27 @@ To install ViTrace, follow these steps:
    pip install -r requirements.txt
 # Usage
 ## Analyzing Human Sequencing Data
-To analyze human sequencing data, ensure that your sequencing read files are stored in the designated folder. Execute the following command:
+To analyze human sequencing data, ensure that your unmapped sequencing FASTA read files are stored in the designated folder. Execute the following command:
    ```bash
-   python predict.py  --folder <path>  
+   python predict.py  --in_folder <path> --out_fold <out_path>   
 ```
-## Analyzing Mouse Sequencing Data
+### Demo
+   ```bash
+   python predict.py --in_folder demo/human_demo --out_folder out
+```
 
+## Analyzing Mouse Sequencing Data
+To analyze mouse sequencing data, ensure that your unmapped sequencing FASTA read files are stored in the designated folder. Execute the following command:
+
+```bash
+python predict_mouse.py --in_folder <path> --out_fold <out_path>
 ```
-python predict_mouse.py
+
+### Demo
+   ```bash
+python predict_mouse.py --in_folder demo/mouse_demo --out_folder out_file
 ```
+
 # Contributing
 Contributions to ViTrace are welcome! Please refer to the contributing guidelines for more information on how to submit issues, fork the repository, and create pull requests.
 
