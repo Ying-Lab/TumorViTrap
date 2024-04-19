@@ -5,23 +5,23 @@ from model import Transformer, VirusCNN
 from init import matrix_from_fasta, setup_seed, filter_reads
 import argparse
 import math
-import csv
 
 #####################################################################
 ##########################  Input Params  ###########################
 #####################################################################
 
 parser = argparse.ArgumentParser(description='manual to this script')
-parser.add_argument('--folder', default='/workspace/data/code/me/TumorViTrap_github/test_data', help='Folder path containing FASTA files')
-parser.add_argument('--num_layers', type=int, default=3)
-parser.add_argument('--embed_size', type=int, default=512)
-parser.add_argument('--batch_size', type=int, default=1024)
-parser.add_argument('--forward_expansion', type=int, default=2)
-parser.add_argument('--out_size', type=int, default=256)
-parser.add_argument('--heads', type=int, default=8)
-parser.add_argument('--dorp_out', type=float, default=0.1)
-parser.add_argument('--reverse', type=int, default=0)
-parser.add_argument('--output_file', default='predictions.txt', help='File to save the predictions')
+parser.add_argument('--in_folder', default='', required=True, help='Folder path containing FASTA files')
+parser.add_argument('--out_folder', default='', required=True)
+parser.add_argument('--threshold', type=float, default = 0.6, required=False)
+parser.add_argument('--num_layers', type=int, default=3, required=False)
+parser.add_argument('--embed_size', type=int, default=512, required=False)
+parser.add_argument('--batch_size', type=int, default=1024, required=False)
+parser.add_argument('--forward_expansion', type=int, default=2, required=False)
+parser.add_argument('--out_size', type=int, default=256, required=False)
+parser.add_argument('--heads', type=int, default=8, required=False)
+parser.add_argument('--dorp_out', type=float, default=0.1, required=False)
+parser.add_argument('--output_file', default='out/predictions1.txt', help='File to save the predictions')
 parsers = parser.parse_args()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 setup_seed(1001)
@@ -40,7 +40,8 @@ def process_fasta_files(folder_path):
             test_x = torch.tensor(matrix_from_fasta(file_path))
             b_z = parsers.batch_size
             test_loader = torch.utils.data.DataLoader(
-                torch.tensor(test_x).to(device),
+                test_x.clone().detach().to(device),
+                # torch.tensor(test_x).to(device),
                 batch_size=b_z,
                 shuffle=False
             )
@@ -130,17 +131,19 @@ def process_fasta_files(folder_path):
                         else:
                             y_pred.extend(outputs.squeeze().tolist())
                     y_pred = torch.tensor(y_pred)
+                    y_pred1 = torch.where(y_pred > parsers.threshold)[0]
                     
-                return y_pred
+                return y_pred, y_pred1
 
-            read_indices = predict_reads(model, CNN, test_loader)
+            reads_score, read_indices, = predict_reads(model, CNN, test_loader)
+            filter_reads(file_path, read_indices, parsers.out_folder)
             
             # Store predictions along with file name
-            predictions.append((file_name, read_indices.tolist()))
+            predictions.append((file_name, reads_score.tolist()))
 
     # Write predictions to a text file
     with open(parsers.output_file, 'w') as f:
         for seq_name, pred in predictions:
             f.write(f'{seq_name}\t{pred}\n')
 
-process_fasta_files(parsers.folder)
+process_fasta_files(parsers.in_folder)

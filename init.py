@@ -161,7 +161,7 @@ def filter_reads(fasta_file, read_indices, output_path):
         filtered_fasta += header + '\n' + seq + '\n'
 
     # 生成新的输出文件路径
-    output_file = os.path.join(output_path, os.path.basename(fasta_file).replace('.fasta', 'classed.fasta'))
+    output_file = os.path.join(output_path, os.path.basename(fasta_file).replace('.fasta', 'virus_candiadate.fasta'))
 
     # 将过滤后的 fasta 序列写入新文件
     with open(output_file, 'w') as f:
